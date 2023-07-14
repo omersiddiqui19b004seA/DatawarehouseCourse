@@ -1,0 +1,745 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/28/2023 9:30:25 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DRACULA"
+  DTS:CreatorName="Dracula\Omer"
+  DTS:DTSID="{43A17AA4-15CD-4A51-B462-80DB4B48A490}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5209.0"
+  DTS:LocaleID="8192"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{D20EF4A8-750B-4AD9-B755-E28302571749}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DRACULA\SQLEXPRESS.DWH assignment]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{5FFFFC39-86CC-4E02-8B23-2C5E6D083535}"
+      DTS:ObjectName="DRACULA\SQLEXPRESS.DWH assignment">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DRACULA\SQLEXPRESS;Initial Catalog=DWH assignment;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{5FFFFC39-86CC-4E02-8B23-2C5E6D083535}DRACULA\SQLEXPRESS.DWH assignment;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[localhost.dwass2.root]"
+      DTS:CreationName="ADO.NET:System.Data.Odbc.OdbcConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{B8FF2ED7-A933-4759-87FF-755AFF6670EC}"
+      DTS:ObjectName="localhost.dwass2.root">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="server=localhost;uid=root;Driver={MySQL ODBC 8.0 ANSI Driver};database=dwass2;">
+          <DTS:Password
+            DTS:Name="pwd"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA8C5mVN43u0+bwU2Hj/JjkwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACgVasf3QrZZxheSkE/qVJkSolJs/gV+9eZPUwj3uGQ4wAAAAAOgAAAAAIAACAAAAD/eROlIDAMAkq/CSs7rC17LtRSNWxssw6ZePz8VESMXiAAAACnZeCh3v+HzIbrcqR2L6LLXyW2IxajTfk3kkdeB2jPakAAAAAvrfWa/sby+32FmD/Ln4P+xSy13Dq2Rbz/jSZ0EhB+EMF6QzjEyNf7hB2FroRZGRAuK/Hj0THFPwWg/Lkjejwd</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Mysql to sql server"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{A8BC4C96-C5B6-4014-A320-1E8C146D123B}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Mysql to sql server"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Mysql to sql server\ADO NET Source"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="ADO NET Source"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">customer</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">0</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Mysql to sql server\ADO NET Source.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost.dwass2.root]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost.dwass2.root]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[id]"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[id]"
+                      name="id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Firstname]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[Firstname]"
+                      length="200"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Firstname]"
+                      name="Firstname"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Lastname]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[Lastname]"
+                      length="200"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Lastname]"
+                      name="Lastname"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Address]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[Address]"
+                      length="200"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Address]"
+                      name="Address"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Phone_Number]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[Phone_Number]"
+                      length="44"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Phone_Number]"
+                      name="Phone_Number"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[id]"
+                      dataType="i4"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[Firstname]"
+                      dataType="wstr"
+                      length="200"
+                      name="Firstname" />
+                    <externalMetadataColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[Lastname]"
+                      dataType="wstr"
+                      length="200"
+                      name="Lastname" />
+                    <externalMetadataColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[Address]"
+                      dataType="wstr"
+                      length="200"
+                      name="Address" />
+                    <externalMetadataColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[Phone_Number]"
+                      dataType="wstr"
+                      length="44"
+                      name="Phone_Number" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[id]"
+                      dataType="i4"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[id]"
+                      name="id" />
+                    <outputColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[Firstname]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[Firstname]"
+                      name="Firstname" />
+                    <outputColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[Lastname]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[Lastname]"
+                      name="Lastname" />
+                    <outputColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[Address]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[Address]"
+                      name="Address" />
+                    <outputColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[Phone_Number]"
+                      dataType="wstr"
+                      length="44"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[Phone_Number]"
+                      name="Phone_Number" />
+                    <outputColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Mysql to sql server\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Mysql to sql server\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Mysql to sql server\Data Conversion.Inputs[Data Conversion Input].Columns[Firstname]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="Firstname"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Firstname]" />
+                    <inputColumn
+                      refId="Package\Mysql to sql server\Data Conversion.Inputs[Data Conversion Input].Columns[Lastname]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="Lastname"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Lastname]" />
+                    <inputColumn
+                      refId="Package\Mysql to sql server\Data Conversion.Inputs[Data Conversion Input].Columns[Address]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="Address"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Address]" />
+                    <inputColumn
+                      refId="Package\Mysql to sql server\Data Conversion.Inputs[Data Conversion Input].Columns[Phone_Number]"
+                      cachedDataType="wstr"
+                      cachedLength="44"
+                      cachedName="Phone_Number"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Phone_Number]" />
+                    <inputColumn
+                      refId="Package\Mysql to sql server\Data Conversion.Inputs[Data Conversion Input].Columns[id]"
+                      cachedDataType="i4"
+                      cachedName="id"
+                      lineageId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[id]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Mysql to sql server\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Firstname]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="200"
+                      lineageId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Firstname]"
+                      name="Copy of Firstname"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Firstname]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Lastname]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="200"
+                      lineageId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Lastname]"
+                      name="Copy of Lastname"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Lastname]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Address]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="200"
+                      lineageId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Address]"
+                      name="Copy of Address"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Address]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Phone_Number]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="44"
+                      lineageId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Phone_Number]"
+                      name="Copy of Phone_Number"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[Phone_Number]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of id]"
+                      name="Copy of id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output].Columns[id]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Mysql to sql server\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Mysql to sql server\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Customers]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Mysql to sql server\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DRACULA\SQLEXPRESS.DWH assignment]"
+                  connectionManagerRefId="Package.ConnectionManagers[DRACULA\SQLEXPRESS.DWH assignment]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of id]"
+                      cachedDataType="i4"
+                      cachedName="Copy of id"
+                      externalMetadataColumnId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      lineageId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of id]" />
+                    <inputColumn
+                      refId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Firstname]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="200"
+                      cachedName="Copy of Firstname"
+                      externalMetadataColumnId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Firstname]"
+                      lineageId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Firstname]" />
+                    <inputColumn
+                      refId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Lastname]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="200"
+                      cachedName="Copy of Lastname"
+                      externalMetadataColumnId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Lastname]"
+                      lineageId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Lastname]" />
+                    <inputColumn
+                      refId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Address]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="200"
+                      cachedName="Copy of Address"
+                      externalMetadataColumnId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Address]"
+                      lineageId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Address]" />
+                    <inputColumn
+                      refId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Phone_Number]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="44"
+                      cachedName="Copy of Phone_Number"
+                      externalMetadataColumnId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Phone_Number]"
+                      lineageId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Phone_Number]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      dataType="i4"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Firstname]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Firstname" />
+                    <externalMetadataColumn
+                      refId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Lastname]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Lastname" />
+                    <externalMetadataColumn
+                      refId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Address]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Address" />
+                    <externalMetadataColumn
+                      refId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Phone_Number]"
+                      codePage="1252"
+                      dataType="str"
+                      length="11"
+                      name="Phone_Number" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Mysql to sql server\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Mysql to sql server\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Mysql to sql server\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Mysql to sql server\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Mysql to sql server\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Mysql to sql server.Paths[ADO NET Source Output]"
+              endId="Package\Mysql to sql server\Data Conversion.Inputs[Data Conversion Input]"
+              name="ADO NET Source Output"
+              startId="Package\Mysql to sql server\ADO NET Source.Outputs[ADO NET Source Output]" />
+            <path
+              refId="Package\Mysql to sql server.Paths[Data Conversion Output]"
+              endId="Package\Mysql to sql server\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Mysql to sql server\Data Conversion.Outputs[Data Conversion Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="168,41.6"
+          Id="Package\Mysql to sql server"
+          TopLeft="147.423080013966,58.7580629033148" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Mysql to sql server">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="163.2,41.6"
+          Id="Package\Mysql to sql server\ADO NET Source"
+          TopLeft="91.8269250767869,56.6129015113977" />
+        <NodeLayout
+          Size="175.2,41.6"
+          Id="Package\Mysql to sql server\OLE DB Destination"
+          TopLeft="358.173084723593,70.7661268892471" />
+        <NodeLayout
+          Size="159.2,41.6"
+          Id="Package\Mysql to sql server\Data Conversion"
+          TopLeft="162.019234297786,131.048383128235" />
+        <EdgeLayout
+          Id="Package\Mysql to sql server.Paths[ADO NET Source Output]"
+          TopLeft="173.426925076787,98.2129015113977">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="68.1923092209994,32.8354816168377"
+              Start="0,0"
+              End="68.1923092209994,25.3354816168377">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.4177408084188" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.4177408084188"
+                    Point2="0,16.4177408084188"
+                    Point3="4,16.4177408084188" />
+                  <mssgle:LineSegment
+                    End="64.1923092209994,16.4177408084188" />
+                  <mssgle:CubicBezierSegment
+                    Point1="64.1923092209994,16.4177408084188"
+                    Point2="68.1923092209994,16.4177408084188"
+                    Point3="68.1923092209994,20.4177408084188" />
+                  <mssgle:LineSegment
+                    End="68.1923092209994,25.3354816168377" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Mysql to sql server.Paths[Data Conversion Output]"
+          TopLeft="321.219234297786,151.848383128235">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="36.9538504258064,-60.2822562389883"
+              Start="0,0"
+              End="29.4538504258064,-60.2822562389883">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="14.4769252129032,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="14.4769252129032,0"
+                    Point2="18.4769252129032,0"
+                    Point3="18.4769252129032,-4" />
+                  <mssgle:LineSegment
+                    End="18.4769252129032,-56.2822562389883" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18.4769252129032,-56.2822562389883"
+                    Point2="18.4769252129032,-60.2822562389883"
+                    Point3="22.4769252129032,-60.2822562389883" />
+                  <mssgle:LineSegment
+                    End="29.4538504258064,-60.2822562389883" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Mysql to sql server\ADO NET Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Mysql to sql server\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
